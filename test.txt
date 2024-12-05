@@ -1,1 +1,37 @@
-pipie de chat
+pipi de chat
+test
+pipi de chat
+
+pipi de chat
+te
+
+char *temp;
+char *line;
+static *buffer
+
+read(fd, line, buffer_size) //buffer_size = 5
+line = pipi
+temp = pipi  
+read(fd, line, buffer_size)
+line = de ch
+temp = pipi de ch
+read(fd, line, buffer_size)
+line = at
+te
+temp = pipi de chat
+static buffer = te
+
+program end
+
+re call
+buffer = te
+temp = NULL;
+
+temp = te
+buffer = NULL;
+
+read(fd, line, buffer_size) //buffer_size = 5
+line = st
+pi
+temp = test
+buffer = pi

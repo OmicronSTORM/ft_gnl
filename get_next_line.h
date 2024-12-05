@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:47:05 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/04 13:41:55 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/05 13:14:29 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <string.h>
+#include <fcntl.h>
 
 char	*get_next_line(int fd);
 size_t	ft_strlen(const char *str);
