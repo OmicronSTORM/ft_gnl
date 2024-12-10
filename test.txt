@@ -1,8 +1,8 @@
-pipi de chat
+Ceci est un test bien long
 test
-pipi de chat
+Ceci est un test
 
-pipi de chat
+Ceci est un test
 te
 
 char *temp;
