@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/10 18:03:29 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/11 18:47:38 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ void	readbuff(int fd, char *line)
 
 	i = 0;
 	j = 0;
-	temp = "";
+	temp = line;
+	// printf("%s\n", temp);
 	while (!ft_strchr(line, '\n'))
 	{
 		temp = ft_strjoin(temp, line);
@@ -32,7 +33,36 @@ void	readbuff(int fd, char *line)
 			temp[j++] = line[i++];
 		}
 	temp[j] = '\0';
-	printf("%s\n", temp);
+	// printf("%s\n", temp);
+}
+// void	start_next_line(char *tmp_buff)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len_tmp;
+// 	char	*str;
+// 	char	*tmp;
+	
+// }
+
+void	next_line_bis(char **tmp_buff, char *str, int len_tmp, int i)
+{
+	int	j;
+	char	*tmp;
+	
+	j = 0;
+	while (str[len_tmp])
+	{
+		len_tmp++;
+		j++;
+	}
+	tmp = malloc(sizeof(char) * j);
+	if (!tmp)
+		return ;
+	j = 0;
+	while (str[i])
+		tmp[j++] = str[i++];
+	*tmp_buff = tmp;
 }
 
 void	nextline(char *tmp_buff)
@@ -41,7 +71,6 @@ void	nextline(char *tmp_buff)
 	int	j;
 	int	len_tmp;
 	char	*str;
-	char	*tmp;
 	
 	str = "";
 	i = 0;
@@ -50,32 +79,15 @@ void	nextline(char *tmp_buff)
 		return ;
 	while (tmp_buff[i])
 		i++;
-	printf("%d\n", i);
 	i = 0;
 	str = tmp_buff;
-	printf("%s\n", str);
 	while (str[i] && str[i] != '\n')
 		i++;
 	while (str[i] && str[i] == '\n')
 		i++;
 	len_tmp = i;
-	while (str[len_tmp])
-	{
-		j++;
-		len_tmp++;
-	}
-	printf("%d\n", j);
-	printf("%d\n", i);
-	tmp = malloc(sizeof(char) * j);
-	j = 0;
-	// printf("%s\n", tmp);
-	while(str[i])
-	{
-		tmp[j] = str[i];
-		i++;
-		j++;
-	}
-	printf("%s\n", tmp);
+	next_line_bis(&tmp_buff, str, len_tmp, i);
+	printf("%s\n", tmp_buff);
 }
 
 char	*get_next_line(int fd)
