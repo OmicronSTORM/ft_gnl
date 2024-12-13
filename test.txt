@@ -3,35 +3,59 @@ test
 Ceci est un test
 
 Ceci est un test
-te
+test
 
-char *temp;
-char *line;
-static *buffer
 
-read(fd, line, buffer_size) //buffer_size = 5
-line = pipi
-temp = pipi  
-read(fd, line, buffer_size)
-line = de ch
-temp = pipi de ch
-read(fd, line, buffer_size)
-line = at
-te
-temp = pipi de chat
-static buffer = te
+// void	start_next_line(char *tmp_buff)
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len_tmp;
+// 	char	*str;
+// 	char	*tmp;
+	
+// }
 
-program end
+// void	next_line_bis(char tmp_buff[BUFFER_SIZE], char *str, int len_tmp, int i)
+// {
+// 	int	j;
+// 	char	*tmp;
 
-re call
-buffer = te
-temp = NULL;
+// 	j = 0;
+// 	while (str[len_tmp])
+// 	{
+// 		len_tmp++;
+// 		j++;
+// 	}
+// 	tmp = malloc(sizeof(char) * j);
+// 	if (!tmp)
+// 		return ;
+// 	j = 0;
+// 	while (str[i])
+// 		tmp[j++] = str[i++];
+// 	tmp_buff = tmp;
+// }
 
-temp = te
-buffer = NULL;
+// void	nextline(char tmp_buff[BUFFER_SIZE])
+// {
+// 	int	i;
+// 	int	j;
+// 	int	len_tmp;
+// 	char	*str;
 
-read(fd, line, buffer_size) //buffer_size = 5
-line = st
-pi
-temp = test
-buffer = pi
+// 	str = "";
+// 	i = 0;
+// 	j = 0;
+// 	if (!tmp_buff)
+// 		return ;
+// 	while (tmp_buff[i])
+// 		i++;
+// 	i = 0;
+// 	str = tmp_buff;
+// 	while (str[i] && str[i] != '\n')
+// 		i++;
+// 	while (str[i] && str[i] == '\n')
+// 		i++;
+// 	len_tmp = i;
+// 	next_line_bis(tmp_buff, str, len_tmp, i);
+// }
