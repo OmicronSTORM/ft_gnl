@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/13 19:09:07 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/13 19:10:12 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ char	*get_next_line(int fd)
 	if (!tmp_buff || tmp_buff[0] == '\0')
 		return (NULL);
 	rest = re_rest(tmp_buff);
+	printf("final_rest:\n%s\n", rest);
 	// create_line();
 	// nextline(tmp_buff);
 	return (line);
