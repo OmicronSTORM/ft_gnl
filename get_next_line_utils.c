@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:30 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/02 15:50:03 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/16 17:07:31 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,4 +65,26 @@ char	*ft_strchr(const char *str, int c)
 	if ((unsigned char)c == '\0')
 		return ((char *)str + i);
 	return (0);
+}
+
+char	*ft_strdup(const char *s1)
+{
+	char	*mem;
+	int		size;
+	int		i;
+
+	i = 0;
+	size = 0;
+	while (s1[size])
+		size++;
+	mem = malloc(sizeof(char) * size + 1);
+	if (!mem)
+		return (0);
+	while (s1[i])
+	{
+		mem[i] = s1[i];
+		i++;
+	}
+	mem[i] = '\0';
+	return (mem);
 }
