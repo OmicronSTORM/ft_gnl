@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/16 18:54:49 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/17 16:45:39 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,14 +34,16 @@ char	*readbuff(int fd, char *tmp_buff, char	*rest)
 		swap[j++] = tmp_buff[i++];
 	swap[j] = '\0';
 	temp = ft_strjoin(temp, swap);
-	printf("%s\n", temp);
+	printf("REPONSE:\n%s\n", temp);
+	// printf("tmp_buff: \n%s\n", tmp_buff);
 	return (temp);
 }
-char	*re_rest(char *tmp_buff, char *rest)
+char	*stock_rest(char *tmp_buff, char *rest)
 {
 	int	i;
 	int	j;
 	int	len_temp;
+	char	*tmp;
 
 	i = 0;
 	j = 0;
@@ -49,13 +51,6 @@ char	*re_rest(char *tmp_buff, char *rest)
 		i++;
 	if (tmp_buff[i] && tmp_buff[i] == '\n')
 		i++;
-	len_temp = i;
-	while (tmp_buff[len_temp])
-	{
-		len_temp++;
-		j++;
-	}
-	j = 0;
 	while (tmp_buff[i])
 		rest[j++] = tmp_buff[i++];
 	// printf("%s\n", rest);
@@ -73,7 +68,8 @@ char	*get_next_line(int fd)
 	line = readbuff(fd, tmp_buff, rest);
 	if (!tmp_buff || tmp_buff[0] == '\0')
 		return (NULL);
-	re_rest(tmp_buff, rest);
+	stock_rest(tmp_buff, rest);
+	read(fd, tmp_buff, BUFFER_SIZE);
 	return (line);
 }
 int main()
@@ -84,6 +80,10 @@ int main()
 
 	i = 0;
 	fd = open("test.txt", O_RDONLY);
+	get_next_line(fd);
+	get_next_line(fd);
+	get_next_line(fd);
+	get_next_line(fd);
 	get_next_line(fd);
 	return (0);
 }
