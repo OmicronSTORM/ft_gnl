@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/19 18:59:54 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/20 17:03:02 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,24 +35,26 @@ char	*readbuff(int fd, char *tmp_buff, char	*rest)
 	temp = alloc(temp, rest);
 	if (!temp)
 		temp = ft_strdup("");
-		while (!ft_strchr(tmp_buff, '\n'))
+	while (!ft_strchr(tmp_buff, '\n'))
+	{
+		temp = ft_strjoin(temp, tmp_buff);
+		bytes_read = read(fd, tmp_buff, BUFFER_SIZE);
+		printf("tmp_buff: %s\n",tmp_buff);
+		if (bytes_read == 0)
+			return (temp);
+	}
+	while (tmp_buff[i] && tmp_buff[i] != '\n')
+		swap[j++] = tmp_buff[i++];
+	if (tmp_buff[i] == '\n')
 		{
-			bytes_read = read(fd, tmp_buff, BUFFER_SIZE);
-				temp = ft_strjoin(temp, tmp_buff);
-			if (bytes_read == 0)
-				return (temp);
+		swap[j] = tmp_buff[i];
+		j++;               //il faut malloc le swap car ca fait des leaks donc ca veut dire qu'il faudra aussi le free pour eviter les leaks.
 		}
-		while (tmp_buff[i] && tmp_buff[i] != '\n')
-			swap[j++] = tmp_buff[i++];
-		if (tmp_buff[i] == '\n')
-			{
-			swap[j] = tmp_buff[i];
-			j++;
-			}
-		swap[j] = '\0';
-		temp = ft_strjoin(temp, swap);
+	swap[j] = '\0';
+	temp = ft_strjoin(temp, swap);
 	return (temp);
 }
+
 char	*stock_rest(char *tmp_buff, char *rest)
 {
 	int	i;
@@ -95,6 +97,7 @@ char	*get_next_line(int fd)
 	if (!tmp_buff || tmp_buff[0] == '\0')
 		return (NULL);
 	rest = stock_rest(tmp_buff, rest);
+	read(fd, tmp_buff, BUFFER_SIZE);
 	// printf("rest: %s", rest);
 	// printf("tmp_buff before: %s\n-----\n", tmp_buff);
 	// printf("tmp_buff: %s\n-----\n", tmp_buff);
@@ -110,16 +113,9 @@ int main()
 
 	i = 0;
 	fd = open("test.txt", O_RDONLY);
-	// while (1)
-	// {
-		line = get_next_line(fd);
-	// 	if (!line)
-	// 		break;
-		printf("%s", line);
-		// line = get_next_line(fd);
-		// printf("%s", line);
-	// 	free(line);
-	// }
-	return (0);
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
 	close(fd);
 }
