@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/20 17:03:02 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/23 18:11:48 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ char	*alloc(char *temp, char *rest)
 	i = ft_strlen(rest);
 	temp = malloc(sizeof(char) * i);
 	temp = rest;
+	free(rest);
+	return(temp);
 }
 char	*readbuff(int fd, char *tmp_buff, char	*rest)
 {
@@ -37,30 +39,35 @@ char	*readbuff(int fd, char *tmp_buff, char	*rest)
 		temp = ft_strdup("");
 	while (!ft_strchr(tmp_buff, '\n'))
 	{
-		temp = ft_strjoin(temp, tmp_buff);
 		bytes_read = read(fd, tmp_buff, BUFFER_SIZE);
-		printf("tmp_buff: %s\n",tmp_buff);
+		tmp_buff[BUFFER_SIZE + 1] = '\0';
+		temp = ft_strjoin(temp, tmp_buff);
+		// printf("tmp_buff: %s\n",tmp_buff);
 		if (bytes_read == 0)
 			return (temp);
 	}
 	while (tmp_buff[i] && tmp_buff[i] != '\n')
+		i++;
+	if (tmp_buff[i] == '\n')
+		i++;
+	swap = malloc(sizeof(char) * i + 1);
+	i = 0;
+	while (tmp_buff[i] && tmp_buff[i] != '\n')
 		swap[j++] = tmp_buff[i++];
 	if (tmp_buff[i] == '\n')
-		{
-		swap[j] = tmp_buff[i];
-		j++;               //il faut malloc le swap car ca fait des leaks donc ca veut dire qu'il faudra aussi le free pour eviter les leaks.
-		}
+		swap[j++] = tmp_buff[i++];
 	swap[j] = '\0';
 	temp = ft_strjoin(temp, swap);
 	return (temp);
 }
 
-char	*stock_rest(char *tmp_buff, char *rest)
+char	*stock_rest(char *tmp_buff)
 {
 	int	i;
 	int	j;
 	int	len_temp;
 	char	*tmp;
+	char	*rest;
 
 	i = 0;
 	j = 0;
@@ -74,10 +81,12 @@ char	*stock_rest(char *tmp_buff, char *rest)
 		len_temp++;
 		j++;
 	}
-	rest = malloc(sizeof(char) * j);
+	rest = malloc(sizeof(char) * j + 1);
 	j = 0;
 	while (tmp_buff[i] && tmp_buff[i] !=  '\n')
 		rest[j++] = tmp_buff[i++];
+	if (tmp_buff[i] && tmp_buff[i] == '\n')
+		rest[j] = tmp[i];
 	return (rest);
 }
 
@@ -85,7 +94,7 @@ char	*get_next_line(int fd)
 {
 	char		*line;
 	static char	*rest;
-	char		tmp_buff[BUFFER_SIZE];
+	char		tmp_buff[BUFFER_SIZE + 1];
 
 	if (!rest)
 		rest = ft_strdup("");
@@ -96,23 +105,20 @@ char	*get_next_line(int fd)
 	line = readbuff(fd, tmp_buff, rest);
 	if (!tmp_buff || tmp_buff[0] == '\0')
 		return (NULL);
-	rest = stock_rest(tmp_buff, rest);
+	rest = stock_rest(tmp_buff);
 	read(fd, tmp_buff, BUFFER_SIZE);
-	// printf("rest: %s", rest);
-	// printf("tmp_buff before: %s\n-----\n", tmp_buff);
-	// printf("tmp_buff: %s\n-----\n", tmp_buff);
-	// printf("%s", line);
-	// printf("__________________________________________\n\n");
 	return (line);
 }
 int main()
 {
 	int fd;
-	int i;
 	char *line;
 
-	i = 0;
 	fd = open("test.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("%s", line);
+	line = get_next_line(fd);
+	printf("%s", line);
 	line = get_next_line(fd);
 	printf("%s", line);
 	line = get_next_line(fd);
