@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/23 18:11:48 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/24 18:06:16 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,21 @@ char	*alloc(char *temp, char *rest)
 	temp = rest;
 	free(rest);
 	return(temp);
+	// int		i;
+	// int		lenght;
+	// char	*line;
+	
+	// lenght = ft_strlen(rest);
+	// printf("%d\n", lenght);
+	// line = malloc(sizeof(char) * lenght);
+	// if (!line)
+	// {
+	// 	free(line);
+	// 	line = NULL;
+	// 	return (NULL);
+	// }
+	// line = rest;
+	// return (line);
 }
 char	*readbuff(int fd, char *tmp_buff, char	*rest)
 {
@@ -86,7 +101,7 @@ char	*stock_rest(char *tmp_buff)
 	while (tmp_buff[i] && tmp_buff[i] !=  '\n')
 		rest[j++] = tmp_buff[i++];
 	if (tmp_buff[i] && tmp_buff[i] == '\n')
-		rest[j] = tmp[i];
+		rest[j] = tmp_buff[i];
 	return (rest);
 }
 
