@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/24 18:56:49 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/26 19:51:52 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*alloc(char *rest)
 	char	*line;
 	
 	lenght = ft_strlen(rest);
-	printf("%d\n", lenght);
+	// printf("%d\n", lenght);
 	line = malloc(sizeof(char) * lenght);
 	if (!line)
 	{
@@ -45,13 +45,16 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 	line = alloc(rest);
 	if (!line)
 		line = ft_strdup("");
-	while (!ft_strchr(tmp_buff, '\n'))
+	while (!ft_strchr(line, '\n'))
 	{
 		nbytes = read(fd, tmp_buff, BUFFER_SIZE);
-		tmp_buff[BUFFER_SIZE + 1] = '\0';
+		printf("NBYTES: %d\n", nbytes);
+		tmp_buff[ft_strlen(tmp_buff) + 1] = '\0';
 		line = ft_strjoin(line, tmp_buff);
 		if (nbytes == 0)
+		{
 			break;
+		}
 	}
 	if (nbytes != 0)
 	{
@@ -72,7 +75,6 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 	{
 		i = ft_strlen(line);
 		j = ft_strlen(tmp_buff);
-		printf("%d\n", i);
 		swap = malloc(sizeof(char) * (i - j));
 		i -= j;
 		j = 0;
@@ -121,7 +123,7 @@ char	*get_next_line(int fd)
 
 	if (!rest)
 		rest = ft_strdup("");
-	if(fd < 0 || BUFFER_SIZE <= 0)
+	if (fd < 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = readbuff(fd, tmp_buff, rest);
 	rest = stock_rest(tmp_buff);
@@ -134,6 +136,8 @@ int main()
 	char *line;
 
 	fd = open("test.txt", O_RDONLY);
+	line = get_next_line(fd);
+	printf("%s", line);
 	line = get_next_line(fd);
 	printf("%s", line);
 	line = get_next_line(fd);
