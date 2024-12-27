@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/26 19:51:52 by jowoundi         ###   ########.fr       */
+/*   Updated: 2024/12/27 15:46:39 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,15 +48,12 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 	while (!ft_strchr(line, '\n'))
 	{
 		nbytes = read(fd, tmp_buff, BUFFER_SIZE);
-		printf("NBYTES: %d\n", nbytes);
 		tmp_buff[ft_strlen(tmp_buff) + 1] = '\0';
 		line = ft_strjoin(line, tmp_buff);
-		if (nbytes == 0)
-		{
+		if (nbytes != BUFFER_SIZE)
 			break;
-		}
 	}
-	if (nbytes != 0)
+	if (nbytes == BUFFER_SIZE)
 	{
 		i = ft_strlen(line);
 		while (line[i] != '\n')
@@ -67,22 +64,24 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 			swap[j] = line[j];
 			j++;
 		}
-		if (line[j] == '\n')
-			swap[j] = line[j];
-		swap[j + 1] = '\0';
+		if (line[j] == '\n')			
+			swap[j] = line[j];			
+		swap[j + 1] = '\0';				
 	}
 	else
 	{
 		i = ft_strlen(line);
 		j = ft_strlen(tmp_buff);
-		swap = malloc(sizeof(char) * (i - j));
+		j -= nbytes;
 		i -= j;
+			swap = malloc(sizeof(char) * (i));
 		j = 0;
-		while (i > j)
+		while (line[j] && i > j)
 		{
 			swap[j] = line[j];
 			j++;
 		}
+		swap[j] = '\0';
 	}
 	free(line);
 	return (swap);
@@ -123,7 +122,7 @@ char	*get_next_line(int fd)
 
 	if (!rest)
 		rest = ft_strdup("");
-	if (fd < 0 || BUFFER_SIZE <= 0)
+	if (fd <= 0 || BUFFER_SIZE <= 0)
 		return (NULL);
 	line = readbuff(fd, tmp_buff, rest);
 	rest = stock_rest(tmp_buff);
