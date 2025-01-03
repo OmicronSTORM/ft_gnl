@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:30 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 17:58:27 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:59:50 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 size_t	ft_strlen(const char *str)
 {
 	size_t	i;
-	
+
 	i = 0;
 	while (str[i])
 		i++;

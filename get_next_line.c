@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 18:58:03 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 19:07:09 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 		if (!rest)
 			return (free(swap), NULL);
 		if (nbytes == 0)
-			break;
+			break ;
 	}
 	i = ft_strlen(rest);
 	swap = malloc(sizeof(char) * (i + 1));
@@ -67,9 +67,9 @@ char	*clear_line(char *line)
 
 char	*stock_rest(char *temp)
 {
-	int	i;
-	int	j;
-	int	len_temp;
+	int		i;
+	int		j;
+	int		len_temp;
 	char	*rest;
 
 	i = 0;
@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	if (!rest)
 		rest = ft_strdup("");
 	temp = readbuff(fd, tmp_buff, rest);
-	if(!temp)
+	if (!temp)
 		return (NULL);
 	line = clear_line(temp);
 	if (!line)
@@ -113,35 +113,35 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int main()
-{
-	int fd;
-	char *rest;
+// int main()
+// {
+// 	int fd;
+// 	char *rest;
 
-	fd = open("test.txt", O_RDONLY);
-	// while(1)
-	// {
-	// 	rest = get_next_line(fd);
-	// 	if (!rest)
-	// 		break;
-	// }
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	close(fd);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	// while(1)
+// 	// {
+// 	// 	rest = get_next_line(fd);
+// 	// 	if (!rest)
+// 	// 		break;
+// 	// }
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	close(fd);
+// }
