@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:47:05 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/27 15:43:40 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 15:38:28 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 33
+#  define BUFFER_SIZE 50
 # endif
 
 # include <unistd.h>
@@ -28,5 +28,6 @@ size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *s1, char const *s2);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s1);
+char	*alloc(char *rest);
 
 #endif

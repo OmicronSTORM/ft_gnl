@@ -5,75 +5,62 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/24 18:06:16 by jowoundi         ###   ########.fr       */
+/*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
+/*   Updated: 2025/01/03 15:57:18 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*alloc(char *temp, char *rest)
-{
-	int	i;
-
-	i = ft_strlen(rest);
-	temp = malloc(sizeof(char) * i);
-	temp = rest;
-	free(rest);
-	return(temp);
-	// int		i;
-	// int		lenght;
-	// char	*line;
-	
-	// lenght = ft_strlen(rest);
-	// printf("%d\n", lenght);
-	// line = malloc(sizeof(char) * lenght);
-	// if (!line)
-	// {
-	// 	free(line);
-	// 	line = NULL;
-	// 	return (NULL);
-	// }
-	// line = rest;
-	// return (line);
-}
-char	*readbuff(int fd, char *tmp_buff, char	*rest)
+char	*readbuff(int fd, char *tmp_buff, char *rest)
 {
 	int		i;
 	int		j;
-	int		bytes_read;
-	char	*temp;
+	int		nbytes;
 	char	*swap;
 
-	i = 0;
 	j = 0;
-	bytes_read = 1;
-	swap = ft_strdup("");
-	temp = alloc(temp, rest);
-	if (!temp)
-		temp = ft_strdup("");
-	while (!ft_strchr(tmp_buff, '\n'))
+	nbytes = 1;
+	while (!ft_strchr(rest, '\n'))
 	{
-		bytes_read = read(fd, tmp_buff, BUFFER_SIZE);
-		tmp_buff[BUFFER_SIZE + 1] = '\0';
-		temp = ft_strjoin(temp, tmp_buff);
-		// printf("tmp_buff: %s\n",tmp_buff);
-		if (bytes_read == 0)
-			return (temp);
+		nbytes = read(fd, tmp_buff, BUFFER_SIZE);
+		if (nbytes == -1)
+			return (free(swap), free(rest), NULL);
+		tmp_buff[nbytes] = '\0';
+		rest = ft_strjoin(rest, tmp_buff);
+		if (!rest)
+			return (free(swap), NULL);
+		if (nbytes == 0)
+			break;
 	}
-	while (tmp_buff[i] && tmp_buff[i] != '\n')
-		i++;
-	if (tmp_buff[i] == '\n')
-		i++;
-	swap = malloc(sizeof(char) * i + 1);
-	i = 0;
-	while (tmp_buff[i] && tmp_buff[i] != '\n')
-		swap[j++] = tmp_buff[i++];
-	if (tmp_buff[i] == '\n')
-		swap[j++] = tmp_buff[i++];
+	if (nbytes != 0 || ft_strchr(rest, '\n'))
+	{
+		i = ft_strlen(rest);
+		swap = malloc(sizeof(char) * i + 1);
+		while (rest[j] != '\n')
+		{
+			swap[j] = rest[j];
+			j++;
+		}
+		if (rest[j] == '\n')			
+			swap[j] = rest[j];
+		j++;
+	}
+	else
+	{
+		i = ft_strlen(rest) - j;
+		j = ft_strlen(tmp_buff) - nbytes;
+			swap = malloc(sizeof(char) * (i));
+		j = 0;
+		while (rest[j] && i > j)
+		{
+			swap[j] = rest[j];
+			j++;
+		}
+	}
 	swap[j] = '\0';
-	temp = ft_strjoin(temp, swap);
-	return (temp);
+	free(rest);
+	return (swap);
 }
 
 char	*stock_rest(char *tmp_buff)
@@ -81,7 +68,6 @@ char	*stock_rest(char *tmp_buff)
 	int	i;
 	int	j;
 	int	len_temp;
-	char	*tmp;
 	char	*rest;
 
 	i = 0;
@@ -98,45 +84,40 @@ char	*stock_rest(char *tmp_buff)
 	}
 	rest = malloc(sizeof(char) * j + 1);
 	j = 0;
-	while (tmp_buff[i] && tmp_buff[i] !=  '\n')
+	while (tmp_buff[i])
 		rest[j++] = tmp_buff[i++];
-	if (tmp_buff[i] && tmp_buff[i] == '\n')
-		rest[j] = tmp_buff[i];
+	rest[j] = '\0';
 	return (rest);
 }
 
 char	*get_next_line(int fd)
 {
 	char		*line;
-	static char	*rest;
 	char		tmp_buff[BUFFER_SIZE + 1];
+	static char	*rest;
 
 	if (!rest)
 		rest = ft_strdup("");
-	printf("check 1 ok\n");
-	sleep(1);
-	if (fd < 0 || BUFFER_SIZE <= 0)
-		return (NULL);
+	if (fd <= 0 || BUFFER_SIZE <= 0)
+		return (free(rest), NULL);
 	line = readbuff(fd, tmp_buff, rest);
-	if (!tmp_buff || tmp_buff[0] == '\0')
+	if(!line)
 		return (NULL);
 	rest = stock_rest(tmp_buff);
-	read(fd, tmp_buff, BUFFER_SIZE);
 	return (line);
 }
+
 int main()
 {
 	int fd;
-	char *line;
+	char *rest;
 
 	fd = open("test.txt", O_RDONLY);
-	line = get_next_line(fd);
-	printf("%s", line);
-	line = get_next_line(fd);
-	printf("%s", line);
-	line = get_next_line(fd);
-	printf("%s", line);
-	line = get_next_line(fd);
-	printf("%s", line);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
 	close(fd);
 }

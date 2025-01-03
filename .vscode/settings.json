@@ -58,6 +58,8 @@
   "C_Cpp_Runner.msvcSecureNoWarnings": false,
   "files.associations": {
     "stdlib.h": "c",
-    "get_next_line.h": "c"
+    "get_next_line.h": "c",
+    "type_traits": "c",
+    "concepts": "c"
   }
 }
