@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   origin.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:06 by jowoundi          #+#    #+#             */
-/*   Updated: 2024/12/24 18:06:16 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 16:16:47 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -140,3 +140,37 @@ int main()
 	printf("%s", line);
 	close(fd);
 }
+
+
+
+
+
+
+	// if (nbytes != 0 || ft_strchr(rest, '\n'))
+	// {
+	// 	i = ft_strlen(rest);
+	// 	swap = malloc(sizeof(char) * i + 1);
+	// 	while (rest[j] != '\n')
+	// 	{
+	// 		swap[j] = rest[j];
+	// 		j++;
+	// 	}
+	// 	if (rest[j] == '\n')			
+	// 		swap[j] = rest[j];
+	// 	j++;
+	// }
+	// else
+	// {
+	// 	i = ft_strlen(rest) - j;
+	// 	j = ft_strlen(tmp_buff) - nbytes;
+	// 		swap = malloc(sizeof(char) * (i));
+	// 	j = 0;
+	// 	while (rest[j] && i > j)
+	// 	{
+	// 		swap[j] = rest[j];
+	// 		j++;
+	// 	}
+	// }
+	// swap[j] = '\0';
+	// free(rest);
+	// return (swap);

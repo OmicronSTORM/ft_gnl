@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 15:57:18 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:04:14 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,34 +33,37 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 		if (nbytes == 0)
 			break;
 	}
-	if (nbytes != 0 || ft_strchr(rest, '\n'))
-	{
-		i = ft_strlen(rest);
-		swap = malloc(sizeof(char) * i + 1);
-		while (rest[j] != '\n')
-		{
-			swap[j] = rest[j];
-			j++;
-		}
-		if (rest[j] == '\n')			
-			swap[j] = rest[j];
-		j++;
-	}
-	else
-	{
-		i = ft_strlen(rest) - j;
-		j = ft_strlen(tmp_buff) - nbytes;
-			swap = malloc(sizeof(char) * (i));
-		j = 0;
-		while (rest[j] && i > j)
-		{
-			swap[j] = rest[j];
-			j++;
-		}
-	}
-	swap[j] = '\0';
+	i = ft_strlen(rest);
+	swap = malloc(sizeof(char) * (i + 1));
+	swap = ft_strcpy(rest, swap);
 	free(rest);
 	return (swap);
+}
+
+char	*clear_line(char *line)
+{
+	int		i;
+	int		j;
+	char	*temp;
+
+	i = 0;
+	j = 0;
+	while (line[i] && line[i] != '\n')
+		i++;
+	temp = malloc(sizeof(char) * (i + 1));
+	while (j < i)
+	{
+		temp[j] = line [j];
+		j++;
+	}
+	if (line[j] == '\n')
+	{
+		temp[j] = line[j];
+		j++;
+	}
+	temp[j] = '\0';
+	free(line);
+	return (temp);
 }
 
 char	*stock_rest(char *tmp_buff)
@@ -77,7 +80,7 @@ char	*stock_rest(char *tmp_buff)
 	if (tmp_buff[i] && tmp_buff[i] == '\n')
 		i++;
 	len_temp = i;
-	while (tmp_buff[len_temp] && tmp_buff[len_temp] != '\n')
+	while (tmp_buff[len_temp])
 	{
 		len_temp++;
 		j++;
@@ -101,6 +104,7 @@ char	*get_next_line(int fd)
 	if (fd <= 0 || BUFFER_SIZE <= 0)
 		return (free(rest), NULL);
 	line = readbuff(fd, tmp_buff, rest);
+	line = clear_line(line);
 	if(!line)
 		return (NULL);
 	rest = stock_rest(tmp_buff);

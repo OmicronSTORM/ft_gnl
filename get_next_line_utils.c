@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:46:30 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 15:16:16 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 17:58:27 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,4 +84,18 @@ char	*ft_strdup(const char *s1)
 	}
 	mem[i] = '\0';
 	return (mem);
+}
+
+char	*ft_strcpy(char *s1, char *s2)
+{
+	int	i;
+
+	i = 0;
+	while (s1[i])
+	{
+		s2[i] = s1[i];
+		i++;
+	}
+	s2[i] = '\0';
+	return (s2);
 }
