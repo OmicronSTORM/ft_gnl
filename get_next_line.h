@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:47:05 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 17:57:02 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:52:24 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 # define GET_NEXT_LINE_H
 
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE 50
+#  define BUFFER_SIZE 15000
 # endif
 
 # include <unistd.h>

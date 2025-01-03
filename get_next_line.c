@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 18:04:14 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/03 18:58:03 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,11 +62,10 @@ char	*clear_line(char *line)
 		j++;
 	}
 	temp[j] = '\0';
-	free(line);
 	return (temp);
 }
 
-char	*stock_rest(char *tmp_buff)
+char	*stock_rest(char *temp)
 {
 	int	i;
 	int	j;
@@ -75,20 +74,20 @@ char	*stock_rest(char *tmp_buff)
 
 	i = 0;
 	j = 0;
-	while (tmp_buff[i] && tmp_buff[i] != '\n')
+	while (temp[i] && temp[i] != '\n')
 		i++;
-	if (tmp_buff[i] && tmp_buff[i] == '\n')
+	if (temp[i] && temp[i] == '\n')
 		i++;
 	len_temp = i;
-	while (tmp_buff[len_temp])
+	while (temp[len_temp])
 	{
 		len_temp++;
 		j++;
 	}
 	rest = malloc(sizeof(char) * j + 1);
 	j = 0;
-	while (tmp_buff[i])
-		rest[j++] = tmp_buff[i++];
+	while (temp[i])
+		rest[j++] = temp[i++];
 	rest[j] = '\0';
 	return (rest);
 }
@@ -98,16 +97,19 @@ char	*get_next_line(int fd)
 	char		*line;
 	char		tmp_buff[BUFFER_SIZE + 1];
 	static char	*rest;
+	static char	*temp;
 
+	if (fd <= 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 1000000)
+		return (free(rest), NULL);
 	if (!rest)
 		rest = ft_strdup("");
-	if (fd <= 0 || BUFFER_SIZE <= 0)
-		return (free(rest), NULL);
-	line = readbuff(fd, tmp_buff, rest);
-	line = clear_line(line);
-	if(!line)
+	temp = readbuff(fd, tmp_buff, rest);
+	if(!temp)
 		return (NULL);
-	rest = stock_rest(tmp_buff);
+	line = clear_line(temp);
+	if (!line)
+		return (NULL);
+	rest = stock_rest(temp);
 	return (line);
 }
 
@@ -117,6 +119,24 @@ int main()
 	char *rest;
 
 	fd = open("test.txt", O_RDONLY);
+	// while(1)
+	// {
+	// 	rest = get_next_line(fd);
+	// 	if (!rest)
+	// 		break;
+	// }
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
 	rest = get_next_line(fd);
 	printf("%s", rest);
 	rest = get_next_line(fd);
