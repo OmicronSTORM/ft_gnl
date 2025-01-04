@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/04 15:24:48 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:54:00 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,38 +120,38 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-int main()
-{
-	int fd;
-	char *rest;
+// int main()
+// {
+// 	int fd;
+// 	char *rest;
 
-	fd = open("test.txt", O_RDONLY);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	rest = get_next_line(fd);
-	printf("%s", rest);
-	free(rest);
-	close(fd);
-}
+// 	fd = open("test.txt", O_RDONLY);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	rest = get_next_line(fd);
+// 	printf("%s", rest);
+// 	free(rest);
+// 	close(fd);
+// }
