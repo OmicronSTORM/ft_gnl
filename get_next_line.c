@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/03 19:07:09 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/04 15:24:48 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,11 @@ char	*clear_line(char *line)
 	j = 0;
 	while (line[i] && line[i] != '\n')
 		i++;
+	if (line[i] && line[i] == '\n')
+		i++;
 	temp = malloc(sizeof(char) * (i + 1));
+	if (!temp)
+		return (NULL);
 	while (j < i)
 	{
 		temp[j] = line [j];
@@ -85,6 +89,8 @@ char	*stock_rest(char *temp)
 		j++;
 	}
 	rest = malloc(sizeof(char) * j + 1);
+	if (!rest)
+		return (free(rest), NULL);
 	j = 0;
 	while (temp[i])
 		rest[j++] = temp[i++];
@@ -99,7 +105,7 @@ char	*get_next_line(int fd)
 	static char	*rest;
 	static char	*temp;
 
-	if (fd <= 0 || BUFFER_SIZE <= 0 || BUFFER_SIZE >= 1000000)
+	if (fd <= 0 || BUFFER_SIZE <= 0)
 		return (free(rest), NULL);
 	if (!rest)
 		rest = ft_strdup("");
@@ -108,40 +114,44 @@ char	*get_next_line(int fd)
 		return (NULL);
 	line = clear_line(temp);
 	if (!line)
-		return (NULL);
+		return (free(line), NULL);
 	rest = stock_rest(temp);
+	free(temp);
 	return (line);
 }
 
-// int main()
-// {
-// 	int fd;
-// 	char *rest;
+int main()
+{
+	int fd;
+	char *rest;
 
-// 	fd = open("test.txt", O_RDONLY);
-// 	// while(1)
-// 	// {
-// 	// 	rest = get_next_line(fd);
-// 	// 	if (!rest)
-// 	// 		break;
-// 	// }
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	close(fd);
-// }
+	fd = open("test.txt", O_RDONLY);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	rest = get_next_line(fd);
+	printf("%s", rest);
+	free(rest);
+	close(fd);
+}
