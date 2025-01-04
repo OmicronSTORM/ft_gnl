@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/04 15:54:00 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/04 17:14:59 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,19 @@
 char	*readbuff(int fd, char *tmp_buff, char *rest)
 {
 	int		i;
-	int		j;
 	int		nbytes;
 	char	*swap;
 
-	j = 0;
 	nbytes = 1;
 	while (!ft_strchr(rest, '\n'))
 	{
 		nbytes = read(fd, tmp_buff, BUFFER_SIZE);
 		if (nbytes == -1)
-			return (free(swap), free(rest), NULL);
+			return (free(rest), NULL);
 		tmp_buff[nbytes] = '\0';
 		rest = ft_strjoin(rest, tmp_buff);
 		if (!rest)
-			return (free(swap), NULL);
+			return (NULL);
 		if (nbytes == 0)
 			break ;
 	}
@@ -47,7 +45,9 @@ char	*clear_line(char *line)
 	char	*temp;
 
 	i = 0;
-	j = 0;
+	j = -1;
+	if (line[0] == 0)
+		return (free(line), NULL);
 	while (line[i] && line[i] != '\n')
 		i++;
 	if (line[i] && line[i] == '\n')
@@ -55,16 +55,8 @@ char	*clear_line(char *line)
 	temp = malloc(sizeof(char) * (i + 1));
 	if (!temp)
 		return (NULL);
-	while (j < i)
-	{
-		temp[j] = line [j];
-		j++;
-	}
-	if (line[j] == '\n')
-	{
+	while (++j < i)
 		temp[j] = line[j];
-		j++;
-	}
 	temp[j] = '\0';
 	return (temp);
 }
@@ -127,31 +119,14 @@ char	*get_next_line(int fd)
 
 // 	fd = open("test.txt", O_RDONLY);
 // 	rest = get_next_line(fd);
-// 	printf("%s", rest);
+// 	if (rest)
+// 		printf("%s", rest);
 // 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
-// 	rest = get_next_line(fd);
-// 	printf("%s", rest);
-// 	free(rest);
+// 	while (rest)
+// 	{
+// 		rest = get_next_line(fd);
+// 		printf("%s", rest);
+// 		free(rest);
+// 	}
 // 	close(fd);
 // }
