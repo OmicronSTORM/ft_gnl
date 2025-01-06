@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/06 15:37:31 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/06 19:07:42 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,8 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 	}
 	i = ft_strlen(rest);
 	swap = malloc(sizeof(char) * (i + 1));
+	if (!swap)
+		return (NULL);
 	swap = ft_strcpy(rest, swap);
 	free(rest);
 	return (swap);
@@ -82,7 +84,7 @@ char	*stock_rest(char *temp)
 	}
 	rest = malloc(sizeof(char) * j + 1);
 	if (!rest)
-		return (free(rest), NULL);
+		return (NULL);
 	j = 0;
 	while (temp[i])
 		rest[j++] = temp[i++];
@@ -97,7 +99,7 @@ char	*get_next_line(int fd)
 	static char	*rest;
 	static char	*temp;
 
-	if (fd <= 0 || BUFFER_SIZE <= 0)
+	if (fd <= 0)
 		return (free(rest), NULL);
 	if (!rest)
 		rest = ft_strdup("");
