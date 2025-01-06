@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/04 17:14:59 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/06 15:37:31 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ char	*get_next_line(int fd)
 // 	int fd;
 // 	char *rest;
 
-// 	fd = open("test.txt", O_RDONLY);
+// 	fd = open("bible.txt", O_RDONLY);
 // 	rest = get_next_line(fd);
 // 	if (rest)
 // 		printf("%s", rest);
@@ -125,7 +125,8 @@ char	*get_next_line(int fd)
 // 	while (rest)
 // 	{
 // 		rest = get_next_line(fd);
-// 		printf("%s", rest);
+// 		if (rest)
+// 			printf("%s", rest);
 // 		free(rest);
 // 	}
 // 	close(fd);
