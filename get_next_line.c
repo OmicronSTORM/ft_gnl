@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/08 15:05:41 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/08 15:06:40 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,6 +113,9 @@ char	*get_next_line(int fd)
 	free(temp);
 	return (line);
 }
+
+// # include <stdio.h>
+// # include <fcntl.h>
 
 // int main()
 // {
