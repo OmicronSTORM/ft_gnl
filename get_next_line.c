@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/23 16:17:04 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/10 13:58:47 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/10 18:50:51 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 char	*readbuff(int fd, char *tmp_buff, char *rest)
 {
-	int		i;
 	int		nbytes;
-	char	*swap;
 
 	nbytes = 1;
+	if (!rest)
+		return (NULL);
 	while (!ft_strchr(rest, '\n'))
 	{
 		nbytes = read(fd, tmp_buff, BUFFER_SIZE);
@@ -31,13 +31,7 @@ char	*readbuff(int fd, char *tmp_buff, char *rest)
 		if (nbytes == 0)
 			break ;
 	}
-	i = ft_strlen(rest);
-	swap = malloc(sizeof(char) * (i + 1));
-	if (!swap)
-		return (NULL);
-	swap = ft_strcpy(rest, swap);
-	free(rest);
-	return (swap);
+	return (rest);
 }
 
 char	*clear_line(char *line)
@@ -56,7 +50,7 @@ char	*clear_line(char *line)
 		i++;
 	temp = malloc(sizeof(char) * (i + 1));
 	if (!temp)
-		return (NULL);
+		return (free(line), NULL);
 	while (++j < i)
 		temp[j] = line[j];
 	temp[j] = '\0';
@@ -111,6 +105,8 @@ char	*get_next_line(int fd)
 		return (free(line), NULL);
 	rest = stock_rest(temp);
 	free(temp);
+	if (!rest)
+		return (free(line), NULL);
 	return (line);
 }
 
@@ -122,7 +118,7 @@ char	*get_next_line(int fd)
 // 	int fd;
 // 	char *rest;
 
-// 	fd = 0;
+// 	fd = open("test.txt", O_RDONLY);
 // 	rest = get_next_line(fd);
 // 	if (rest)
 // 		printf("%s", rest);
