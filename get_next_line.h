@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:47:05 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/08 15:06:29 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/20 14:37:40 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,11 @@
 # endif
 
 # if BUFFER_SIZE > 8000000
+#  undef BUFFER_SIZE
+#  define BUFFER_SIZE 10
+# endif
+
+# if BUFFER_SIZE < 0
 #  undef BUFFER_SIZE
 #  define BUFFER_SIZE 10
 # endif
