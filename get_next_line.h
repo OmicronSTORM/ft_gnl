@@ -6,7 +6,7 @@
 /*   By: jowoundi <jowoundi@student.s19.be>         +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/11/27 18:47:05 by jowoundi          #+#    #+#             */
-/*   Updated: 2025/01/20 14:37:40 by jowoundi         ###   ########.fr       */
+/*   Updated: 2025/01/28 16:00:52 by jowoundi         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,5 @@ size_t	ft_strlen(const char *str);
 char	*ft_strjoin(char *s1, char const *s2);
 char	*ft_strchr(const char *str, int c);
 char	*ft_strdup(const char *s1);
-char	*ft_strcpy(char *s1, char *s2);
 
 #endif
